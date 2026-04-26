@@ -1,9 +1,11 @@
 package main
 
 import (
+	"fmt"
+	"log"
+
 	"ZpcGoProject/config"
 	"ZpcGoProject/router"
-	"fmt"
 )
 
 func main() {
@@ -12,6 +14,9 @@ func main() {
 	config.RegisterService()
 
 	r := router.Init()
-	fmt.Println("🚀 服务启动成功 : " + config.ServerPort)
-	r.Run(":" + config.ServerPort)
+	addr := ":" + config.ServerPort
+	fmt.Println("service started on " + addr)
+	if err := r.Run(addr); err != nil {
+		log.Fatal(err)
+	}
 }

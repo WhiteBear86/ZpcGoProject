@@ -1,23 +1,18 @@
 package config
 
-import (
-	"github.com/nacos-group/nacos-sdk-go/v2/clients"
-	"github.com/nacos-group/nacos-sdk-go/v2/vo"
-	"log"
-)
+import "log"
 
 func RegisterService() {
-	client, _ := clients.NewNamingClient(vo.NacosClientParam{})
-
-	success, err := client.RegisterInstance(vo.RegisterInstanceParam{
-		Ip:          "127.0.0.1",
-		Port:        8080,
-		ServiceName: App.Name,
-		GroupName:   "DEFAULT_GROUP",
-	})
-	if err != nil || !success {
-		log.Println("服务注册失败")
-	} else {
-		log.Println("✅ 服务注册Nacos成功")
+	port, err := parseServicePort(ServerPort)
+	if err != nil {
+		log.Printf("服务端口无效，跳过 Nacos 注册: %v", err)
+		return
 	}
+
+	if err := registerServiceHTTP(App.Name, "127.0.0.1", port, "DEFAULT_GROUP"); err != nil {
+		log.Printf("服务注册失败: %v", err)
+		return
+	}
+
+	log.Printf("服务已注册到 Nacos: %s:%s", App.Name, ServerPort)
 }
