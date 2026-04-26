@@ -19,6 +19,10 @@ const (
 
 var nacosHTTPClient = &http.Client{Timeout: 5 * time.Second}
 
+/*
+*
+获取nacos的连接字符串
+*/
 func nacosBaseURL() string {
 	return fmt.Sprintf("http://%s:%d/nacos", nacosHost, nacosPort)
 }

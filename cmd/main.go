@@ -10,7 +10,7 @@ import (
 
 func main() {
 	config.InitNacosConfig()
-	config.InitDB()
+	config.InitDB() //连接到数据库
 	config.RegisterService()
 
 	r := router.Init()

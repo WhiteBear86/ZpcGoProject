@@ -2,6 +2,10 @@ package config
 
 import "testing"
 
+/*
+*
+测试数据库连接字符串能否正常生成
+*/
 func TestMysqlConfigDSN(t *testing.T) {
 	cfg := MysqlConfig{
 		Host:     "127.0.0.1",

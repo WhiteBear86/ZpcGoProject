@@ -9,9 +9,13 @@ import (
 	"github.com/gin-gonic/gin"
 )
 
+/*
+*
+新增用户
+*/
 func Add(c *gin.Context) {
 	var u model.User
-	_ = c.ShouldBindJSON(&u)
+	_ = c.ShouldBindJSON(&u) //这是 Gin 框架 的函数 自动把 JSON 字段映射到结构体字段
 	if err := service.Create(&u); err != nil {
 		resp.Error(c, "create user failed")
 		return

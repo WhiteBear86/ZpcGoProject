@@ -9,6 +9,10 @@ import (
 
 var DB *gorm.DB
 
+/*
+*
+初始化gorm数据库连接源的函数
+*/
 func InitDB() {
 	db, err := gorm.Open(mysql.Open(DBConfig.DSN()), &gorm.Config{})
 	if err != nil {
